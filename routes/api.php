@@ -29,6 +29,8 @@ Route::post('/auth/register', [AuthController::class, 'register']);
 Route::get('/reports/verify/{token}', [ReportController::class, 'verifyQr']);
 Route::get('/public-settings', [SettingController::class, 'publicBranding']);
 
+Route::get('/reports/{id}/download', [ReportController::class, 'downloadPdf'])->name('reports.download');
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/me', [AuthController::class, 'me']);
     Route::post('/auth/logout', [AuthController::class, 'logout']);
@@ -51,7 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('reports', ReportController::class);
     Route::post('/reports/{id}/status', [ReportController::class, 'setStatus']);
     Route::post('/reports/{id}/generate-pdf', [ReportController::class, 'generatePdf']);
-    Route::get('/reports/{id}/download', [ReportController::class, 'downloadPdf'])->name('reports.download');
+
 
     Route::apiResource('invoices', InvoiceController::class);
     Route::apiResource('payments', PaymentController::class);
